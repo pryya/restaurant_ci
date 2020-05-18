@@ -23,6 +23,7 @@ class Admin extends MY_Controller {
   public function pengguna(){
     $data['user']= $this->UserModel->tampil_datapengguna()->result();
     $this->load->view('tampilan/header');
+    $this->authenticated();
     $this->load->view('pengguna',$data);
     $this->load->view('tampilan/footer');
   }
