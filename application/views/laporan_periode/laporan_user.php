@@ -22,9 +22,9 @@
 <tr>
 <th>No</th>
 <th>Username</th>
+<th>Nama</th>
 <th>Password</th>
-<th>Id Level</th>
-<th>Nama Level</th>
+<th>Role</th>
 
 </tr>
 <?php
@@ -35,9 +35,9 @@ if(count($login_jo1)>0){
     <tr>
     <td><?php echo $no++ ?></td>
     <td><?php echo $k->username; ?></td>
+    <td><?php echo $k->nama_user; ?></td>
     <td><?php echo $k->password; ?></td>
     <td><?php echo $k->id_level; ?></td>
-    <td><?php echo $k->nama_level; ?></td>
     
     </tr>
     <?php }}else{ ?>
