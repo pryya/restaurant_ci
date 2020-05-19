@@ -3,7 +3,7 @@
   <div class="row">
     <div class="col">
       <div class="card shadow-lg">
-        <div class="card-header bg-gray-500">Edit Data Pengguna</div>
+        <div class="card-header bg-gray-500  bg-primary-500 text-primary">Edit Data Pengguna</div>
           <div class="card-body">
             <form method="POST" action="<?=base_url('admin/pengguna_edit');?>">
              <div class="modal-body">
@@ -22,14 +22,11 @@
                     <option value= 2 >Kasir</option>
                     <option value=3>Koki</option>
                     <option value=4>Owner</option>
-
-                   
                   </select>
                   <input type="hidden" class="form-control" id="user_update" name="user_update"  value="<?=$this->session->userdata('nama'); ?>" required>             
                    <input name="update_date" type="hidden" id="update_date" value=" <?php echo date('Y-m-d'); ?> "readonly>
               </div>
             </div>
-              
             <div class="modal-footer">
               <a href="<?=base_url('admin/pengguna');?>" type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-undo"></i>&nbsp;&nbsp;Batal&nbsp;</a>
               <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>&nbsp;&nbsp;Update</button>
