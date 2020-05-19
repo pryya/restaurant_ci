@@ -153,8 +153,7 @@ $tgl_jual=date('Y-m-d');?>
      
    </div>
 
-   
-   <script>
+<script>
 function sum(){
   var txtFirstNumberValue = document.getElementById('subtotal').value;
   var txtSecondNumberValue = document.getElementById('bayar').value;
