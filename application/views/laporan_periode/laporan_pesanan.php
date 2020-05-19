@@ -22,23 +22,22 @@
 <tr>
 <th>No</th>
 <th>Id Pesanan</th>
-                      <th>Id Menu</th>
-                      <th>Nama Menu</th>
-                      <th>Jumlah Pesan</th>
-                      <th>No Meja</th>
-                      <th>Harga Satuan</th>
-                      <th>Tanggal Pesan</th>
-                      <th>Jam Pesan</th>
-                      <th>Total</th>
+<th>Id Menu</th>
+<th>Nama Menu</th>
+<th>Jumlah Pesan</th>
+<th>No Meja</th>
+<th>Harga Satuan</th>
+<th>Tanggal Pesan</th>
+<th>Jam Pesan</th>
+<th>Total</th>
 
 </tr>
 <?php
 if(count($pesanan)>0){
     $no = 1;
     foreach($pesanan as $p){?>
-
-    <tr>
-    <td><?php echo $no++ ?></td>
+<tr>
+  <td><?php echo $no++ ?></td>
   <td><?php echo $p->id_pesanan ?></td>
   <td><?php echo $p->id_menu ?></td>
   <td><?php echo $p->nama_menu ?></td>
@@ -49,13 +48,12 @@ if(count($pesanan)>0){
   <td><?php echo $p->jam_pesan ?></td>
   <td><?php echo $p->total ?></td>
     
-    </tr>
-    <?php }}else{ ?>
-    <tr>
+</tr>
+<?php }}else{ ?>
+  <tr>
     <td colspan="5" align="center">Tidak Ada Data.</td>
-    </tr>
-    <?php } ?>
-    </table></center>
-    
+  </tr>
+<?php } ?>
+</table></center>
 </body>
 </html>
