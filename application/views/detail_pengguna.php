@@ -1,13 +1,13 @@
 <div class="content-wrapper">
-    <section class="content">
-        <h4><strong>
-            DETAIL DATA PENGGUNA
+<section class="content">
+<h4><strong>
+     DETAIL DATA PENGGUNA
 </strong></h4>
 
 <table class="table">
-    <tr>
-        <th>Id User</th>
-        <td><?php echo $detail->id_user ?></td>
+ <tr>
+    <th>Id User</th>
+    <td><?php echo $detail->id_user ?></td>
 </tr>
 
 <tr>
