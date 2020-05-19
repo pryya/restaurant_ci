@@ -74,26 +74,6 @@ class Admin extends MY_Controller {
     $this->load->view('tampilan/footer');
   }
 
-  //Laporan Data Pengguna PDF
-  public function pdf(){
-    //load library dompdf_gen
-    $this->load->library('dompdf_gen');
-    //membuat varibel
-  
-    $data['user'] = $this->UserModel->tampil_datapengguna('user')->result();
-  
-    $this->load->view('laporan/pengguna_pdf',$data);
-  
-    $paper_size = 'A4';
-    $orientation = 'landscape';
-    $html = $this->output->get_output();
-    $this->dompdf->set_paper($paper_size, $orientation);
-  
-    $this->dompdf->load_html($html);
-    $this->dompdf->render();
-    $this->dompdf->stream("laporan_pengguna.pdf", array('Attachment'=>0));
-    }
-
   //Pencarian Data Pengguna Di Hal Pengguna
   public function search_pengguna(){
     $keyword = $this->input->get('cari_pengguna', TRUE); //mengambil nilai dari form input cari
@@ -125,60 +105,6 @@ class Admin extends MY_Controller {
     $this->load->view('tampilan/footer');
   }
 
-  //Laporan Data Menu PDF
-  public function pdf_makanan(){
-    //load library dompdf_gen
-    $this->load->library('dompdf_gen');
-    //membuat varibel
-
-		$data['makanan'] = $this->UserModel->tampil_datamakanan('makanan')->result();
-
-		$this->load->view('laporan/makanan_pdf',$data);
-
-		$paper_size = 'A4';
-		$orientation = 'landscape';
-		$html = $this->output->get_output();
-		$this->dompdf->set_paper($paper_size, $orientation);
-
-		$this->dompdf->load_html($html);
-		$this->dompdf->render();
-		$this->dompdf->stream("laporan_makanan.pdf", array('Attachment'=>0));
-  }  
-
-  //Pencarian Data Makanan
-  public function search_makanan(){
-    $keyword = $this->input->get('cari_makanan', TRUE); //mengambil nilai dari form input cari
-    $data['makanan'] = $this->UserModel->cari_makanan($keyword); //mencari data karyawan berdasarkan inputan
-    $this->load->view('tampilan/header');
-    //$this->load->view('templates/sidebar');
-    $this->load->view('makanan', $data); //menampilkan data yang sudah dicari
-    $this->load->view('tampilan/footer');
-  }
-
-  //Untuk Menampilkan Detail Data Menu
-  public function detail_menu($id_menu){
-    $this->load->model('UserModel');
-    $detail_menu = $this->UserModel->detail_datam($id_menu);
-    $data['detail_menu'] = $detail_menu;
-    $this->load->view('tampilan/header');
-    $this->load->view('detail_menumm', $data);
-    $this->load->view('tampilan/footer');
-  }
-
-  //Mengbungkan ke Model untuk Hapus Data Menu
-  public function hapus_menu($id_menu){
-    $this->UserModel->hapus_menumm($id_menu);
-    redirect('admin/makanan');
-  }
-
-  //untuk Menampilkan Form Edit
-  public function menu_ubah($id_menu){
-    $data['makanan'] = $this->UserModel->getDatamakanan($id_menu);
-    $this->load->view('tampilan/header');
-    $this->load->view('menu_ubah', $data);
-    $this->load->view('tampilan/footer');
-  }
-
   //Menghubungkan ke Model untuk Tambah Data
   public function tambah_makanan(){
     $this->UserModel->input_makanan($data, 'daftar_menu');
@@ -187,6 +113,14 @@ class Admin extends MY_Controller {
     Data Berhasil Ditambahkan!
     </div>');
     redirect('admin/makanan');
+  }
+
+   //untuk Menampilkan Form Edit
+   public function menu_ubah($id_menu){
+    $data['makanan'] = $this->UserModel->getDatamakanan($id_menu);
+    $this->load->view('tampilan/header');
+    $this->load->view('menu_ubah', $data);
+    $this->load->view('tampilan/footer');
   }
 
   //Menghubungkan ke Model untuk Proses Edit Data Menu
@@ -199,6 +133,32 @@ class Admin extends MY_Controller {
     redirect('admin/makanan');
   }
 
+  //Mengbungkan ke Model untuk Hapus Data Menu
+  public function hapus_menu($id_menu){
+    $this->UserModel->hapus_menumm($id_menu);
+    redirect('admin/makanan');
+  }
+
+   //Untuk Menampilkan Detail Data Menu
+   public function detail_menu($id_menu){
+    $this->load->model('UserModel');
+    $detail_menu = $this->UserModel->detail_datam($id_menu);
+    $data['detail_menu'] = $detail_menu;
+    $this->load->view('tampilan/header');
+    $this->load->view('detail_menumm', $data);
+    $this->load->view('tampilan/footer');
+  }
+
+  //Pencarian Data Makanan
+  public function search_makanan(){
+    $keyword = $this->input->get('cari_makanan', TRUE); //mengambil nilai dari form input cari
+    $data['makanan'] = $this->UserModel->cari_makanan($keyword); //mencari data karyawan berdasarkan inputan
+    $this->load->view('tampilan/header');
+    //$this->load->view('templates/sidebar');
+    $this->load->view('makanan', $data); //menampilkan data yang sudah dicari
+    $this->load->view('tampilan/footer');
+  }
+
   //Laporan Periode Data Menu
   public function cari_menu(){
     $keyword = $this->input->get('cari_makanan', TRUE); //mengambil nilai dari form input cari
@@ -209,142 +169,8 @@ class Admin extends MY_Controller {
     $this->load->view('tampilan/footer');
   }
 
-  //Pencarian Data Pesanan
-  public function search_pesanan(){
-    $keyword = $this->input->get('cari_pesanan', TRUE); //mengambil nilai dari form input cari
-    $data['pesanan'] = $this->UserModel->cari_pesanan($keyword); //mencari data karyawan berdasarkan inputan
-    $this->load->view('tampilan/header');
-    //$this->load->view('templates/sidebar');
-    $this->load->view('pesanan_view', $data); //menampilkan data yang sudah dicari
-    $this->load->view('tampilan/footer');
-  }
+     /** PESANAN */
 
-  //PENCARIAN DATA PESANAN UNTUK TRANSAKSI
-  public function search_transaksi(){
-    $keyword = $this->input->get('cari_transaksi', TRUE);
-    $data['transaksi'] = $this->UserModel->cari_transaksi($keyword);
-    $this->load->view('tampilan/header');
-    $this->load->view('transaksi', $data);
-    $this->load->view('tampilan/footer');
-    $this->session->set_flashdata('flash_sukses', '<div class="alert alert-success alert-dismissible" role="alert">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    Data Berhasil Diubah!
-  </div>');
-  }
-
-  //PENCARIAN DATA Transaksi
-  public function search_transaksi1(){
-    $keyword = $this->input->get('cari_transaksi', TRUE); //mengambil nilai dari form input cari
-    $data['transaksi1'] = $this->UserModel->cari_transaksi1($keyword); //mencari data karyawan berdasarkan inputan
-    $this->load->view('tampilan/header');
-    //$this->load->view('templates/sidebar');
-    $this->load->view('transaksi_view', $data); //menampilkan data yang sudah dicari
-    $this->load->view('tampilan/footer');
-  }
-
-  //MENAMPILKAN HALAMAN MEJA
-  public function meja(){
-    $data['meja']= $this->UserModel->tampil_datameja()->result();
-    $this->load->view('tampilan/header');
-    $this->load->view('meja',$data);
-    $this->load->view('tampilan/footer');
-  }
-
-  //KE MODEL UNTUK MENAMBAHKAN DATA MEJA
-  public function tambah_meja(){
-    $this->UserModel->input_meja($data, 'posisi_meja');
-    $this->session->set_flashdata('message','<div class="alert alert-success alert-dismissible" role="alert">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    Data Berhasil Ditambahkan!
-  </div>');
-    redirect('admin/meja');
-    
-  }
-
-   public function hapus_meja($no_meja){
-      $this->UserModel->hapus_meja($no_meja);
-      redirect('admin/meja');
-    }
-
-    public function edit_meja($no_meja){
-      $data['meja'] = $this->UserModel->getDatameja($no_meja);
-      $this->load->view('tampilan/header');
-      $this->load->view('meja_ubah', $data);
-      $this->load->view('tampilan/footer');
-    }
-
-    public function meja_edit(){
-      $this->UserModel->ubahDataMeja();
-      $this->session->set_flashdata('flash_sukses', '<div class="alert alert-success alert-dismissible" role="alert">
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      Data Berhasil Diubah!
-    </div>');
-    redirect('admin/meja');
-    }
-
-     //PENCARIAN DATA MEJA
-  public function search_meja(){
-    $keyword = $this->input->get('cari_meja', TRUE); //mengambil nilai dari form input cari
-    $data['meja'] = $this->UserModel->cari_meja($keyword); //mencari data karyawan berdasarkan inputan
-    $this->load->view('tampilan/header');
-    //$this->load->view('templates/sidebar');
-    $this->load->view('meja', $data); //menampilkan data yang sudah dicari
-    $this->load->view('tampilan/footer');
-  }
-
-
-
-
-
- /*  public function pesan(){
-    $data['pesanan'] = $this->UserModel->tampil_datapesanan()->result();
-    $this->load->view('tampilan/header');
-    $this->load->view('pesan', $data);
-    $this->load->view('tampilan/footer');
-
-  } */
-
-
-
-
-
-  
-  //Struk Pesanan
-  public function pdf_pesanan(){
-    //load library dompdf_gen
-    $this->load->library('dompdf_gen');
-    //membuat varibel
-
-		$data['pesan'] = $this->UserModel->tampil_datapesanan('pesan')->result();
-
-		$this->load->view('laporan/pesanan_pdf',$data);
-
-		$paper_size = 'A4';
-		$orientation = 'landscape';
-		$html = $this->output->get_output();
-		$this->dompdf->set_paper($paper_size, $orientation);
-
-		$this->dompdf->load_html($html);
-		$this->dompdf->render();
-		$this->dompdf->stream("laporan_pesanan.pdf", array('Attachment'=>0));
-  }
-
-
-  /* function get_menu()
-    {
-        $id_menu=$this->input->post('id_menu');
-        $data=$this->UserModel->nama($id_menu);
-        echo json_encode($data);
-    } */
-
-    function get_harga(){
-      $id_menu=$this->input->post('id_menu');
-      $data=$this->UserModel->get_harga($id_menu);
-      echo json_encode($data);
-    }
-
-
-    
   //MENAMPILKAN DATA TEMPORY
   public function pesanan(){
     $data['pesan']= $this->UserModel->tampil_datapesanan()->result();
@@ -355,7 +181,6 @@ class Admin extends MY_Controller {
     $this->load->view('tampilan/footer');
   }
   
-
   //KE MODEL UNTUK SIMPAN DATA KE TABEL TEMPORARY
   public function pesanan_tambah(){
     $p['id_pesanan']=$this->UserModel->input_pesanan();
@@ -373,30 +198,75 @@ class Admin extends MY_Controller {
     $this->load->view('tampilan/footer');
   }
 
-    //KE MODEL UNTUK MEMINDAHKAN DATA TEMPORARY KE TABEL BIASA
-    public function tambah_pesanan(){
-      $this->UserModel->pindahTemp($data, 'pesanan');
+  //KE MODEL UNTUK MEMINDAHKAN DATA TEMPORARY KE TABEL BIASA
+  public function tambah_pesanan(){
+    $this->UserModel->pindahTemp($data, 'pesanan');
     $this->session->set_flashdata('message','<div class="alert alert-success alert-dismissible" role="alert">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     Data Berhasil Ditambahkan!
-  </div>');
+    </div>');
     redirect('admin/pesanan');
-      }
+  }
 
-      //KE MODEL UNTUK HAPUS DATA TEMPORARY
-    public function hapus_pesanan($id){
-      $this->UserModel->hapus_pesan($id);
-      redirect('admin/pesanan');
-    }
+  //KE MODEL UNTUK HAPUS DATA TEMPORARY
+  public function hapus_pesanan($id){
+    $this->UserModel->hapus_pesan($id);
+    redirect('admin/pesanan');
+  }
 
-    //KE MODEL UNTUK HAPUS DATA BIASA
-    public function hapus_vpesanan($id){
-      $this->UserModel->hapus_vpesan($id);
-      redirect('admin/pesanan_view');
-    }
+  //KE MODEL UNTUK HAPUS DATA BIASA
+  public function hapus_vpesanan($id){
+    $this->UserModel->hapus_vpesan($id);
+    redirect('admin/pesanan_view');
+  }
 
-      ///MENAMPILKAN HALAMAN DATA MENU
-  public function transaksi(){
+
+  //Pencarian Data Pesanan
+  public function search_pesanan(){
+    $keyword = $this->input->get('cari_pesanan', TRUE); //mengambil nilai dari form input cari
+    $data['pesanan'] = $this->UserModel->cari_pesanan($keyword); //mencari data karyawan berdasarkan inputan
+    $this->load->view('tampilan/header');
+    //$this->load->view('templates/sidebar');
+    $this->load->view('pesanan_view', $data); //menampilkan data yang sudah dicari
+    $this->load->view('tampilan/footer');
+  }
+
+  public function cari_pesanan(){
+    $keyword = $this->input->get('cari_pesanan', TRUE); //mengambil nilai dari form input cari
+    $data['pesanan'] = $this->UserModel->cari_pesanan($keyword); //mencari data karyawan berdasarkan inputan
+    $this->load->view('tampilan/header');
+    //$this->load->view('templates/sidebar');
+    $this->load->view('laporan_periode/laporan_pesanan', $data); //menampilkan data yang sudah dicari
+    $this->load->view('tampilan/footer');
+  }
+
+   /** TRANSAKSI */
+
+  //PENCARIAN DATA PESANAN UNTUK TRANSAKSI
+  public function search_transaksi(){
+    $keyword = $this->input->get('cari_transaksi', TRUE);
+    $data['transaksi'] = $this->UserModel->cari_transaksi($keyword);
+    $this->load->view('tampilan/header');
+    $this->load->view('transaksi', $data);
+    $this->load->view('tampilan/footer');
+    $this->session->set_flashdata('flash_sukses', '<div class="alert alert-success alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    Data Berhasil Diubah!
+    </div>');
+  }
+
+  //PENCARIAN DATA Transaksi
+  public function search_transaksi1(){
+    $keyword = $this->input->get('cari_transaksi', TRUE); //mengambil nilai dari form input cari
+    $data['transaksi1'] = $this->UserModel->cari_transaksi1($keyword); //mencari data karyawan berdasarkan inputan
+    $this->load->view('tampilan/header');
+    //$this->load->view('templates/sidebar');
+    $this->load->view('transaksi_view', $data); //menampilkan data yang sudah dicari
+    $this->load->view('tampilan/footer');
+  }
+
+   ///MENAMPILKAN HALAMAN DATA MENU
+   public function transaksi(){
     $data['transaksi']= $this->UserModel->tampil_datatransaksi()->result();
     $this->load->view('tampilan/header');
     $this->load->view('transaksi',$data);
@@ -425,19 +295,6 @@ class Admin extends MY_Controller {
     redirect('admin/transaksi_view');
   }
 
-  
-
-  
-
-  public function cari_pesanan(){
-    $keyword = $this->input->get('cari_pesanan', TRUE); //mengambil nilai dari form input cari
-    $data['pesanan'] = $this->UserModel->cari_pesanan($keyword); //mencari data karyawan berdasarkan inputan
-    $this->load->view('tampilan/header');
-    //$this->load->view('templates/sidebar');
-    $this->load->view('laporan_periode/laporan_pesanan', $data); //menampilkan data yang sudah dicari
-    $this->load->view('tampilan/footer');
-  }
-
   //Laporan periode
   public function cari_transaksi(){
     $keyword = $this->input->get('cari_transaksi', TRUE); //mengambil nilai dari form input cari
@@ -448,6 +305,75 @@ class Admin extends MY_Controller {
     $this->load->view('tampilan/footer');
   }
 
+   /** MEJA */
+
+  //MENAMPILKAN HALAMAN MEJA
+  public function meja(){
+    $data['meja']= $this->UserModel->tampil_datameja()->result();
+    $this->load->view('tampilan/header');
+    $this->load->view('meja',$data);
+    $this->load->view('tampilan/footer');
+  }
+
+  //KE MODEL UNTUK MENAMBAHKAN DATA MEJA
+  public function tambah_meja(){
+    $this->UserModel->input_meja($data, 'posisi_meja');
+    $this->session->set_flashdata('message','<div class="alert alert-success alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    Data Berhasil Ditambahkan!
+   </div>');
+    redirect('admin/meja');
+    
+  }
+
+  public function hapus_meja($no_meja){
+    $this->UserModel->hapus_meja($no_meja);
+    redirect('admin/meja');
+  }
+
+  public function edit_meja($no_meja){
+    $data['meja'] = $this->UserModel->getDatameja($no_meja);
+    $this->load->view('tampilan/header');
+    $this->load->view('meja_ubah', $data);
+    $this->load->view('tampilan/footer');
+  }
+
+  public function meja_edit(){
+    $this->UserModel->ubahDataMeja();
+    $this->session->set_flashdata('flash_sukses', '<div class="alert alert-success alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+     Data Berhasil Diubah!
+    </div>');
+    redirect('admin/meja');
+  }
+
+  //PENCARIAN DATA MEJA
+  public function search_meja(){
+    $keyword = $this->input->get('cari_meja', TRUE); //mengambil nilai dari form input cari
+    $data['meja'] = $this->UserModel->cari_meja($keyword); //mencari data karyawan berdasarkan inputan
+    $this->load->view('tampilan/header');
+    //$this->load->view('templates/sidebar');
+    $this->load->view('meja', $data); //menampilkan data yang sudah dicari
+    $this->load->view('tampilan/footer');
+  }
+
+    function get_harga(){
+      $id_menu=$this->input->post('id_menu');
+      $data=$this->UserModel->get_harga($id_menu);
+      echo json_encode($data);
+    }
+
+
+    
+ 
+     
+  
+
+  
+
+ 
+
+  
 
 
 
