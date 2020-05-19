@@ -1,8 +1,24 @@
+<!-- /.container-fluid -->
+<!-- Sticky Footer -->
+  <footer class="sticky-footer" id="diprint">
+    <div class="container my-auto">
+    <div class="copyright text-center my-auto">
+      <span>Copyright © Your Website 2019</span>
+    </div>
+    </div>
+  </footer>
+</div>
+<!-- /.content-wrapper -->
+</div>
+<!-- /#wrapper -->
+  
+<!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
 
-
-
-<!-- Bootstrap core JavaScript-->
-<script src="<?php echo base_url()?>assets/vendor/jquery/jquery.min.js"></script>
+  <!-- Bootstrap core JavaScript-->
+  <script src="<?php echo base_url()?>assets/vendor/jquery/jquery.min.js"></script>
   <script src="<?php echo base_url()?>assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <!-- Core plugin JavaScript-->
@@ -15,18 +31,13 @@
   <script src="<?php echo base_url()?>assets/vendor/datatables/jquery.dataTables.min.js"></script>
   <script src="<?php echo base_url()?>assets/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
-  <script src="http://cdn.jsdelivr.net/timepicker.js/latest/timepicker.min.js"></script>
-
-
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-
-<script>
-  function myFunction(){
-    window.print();
-  }
-  </script>
-  
+  <!-- Page level custom scripts -->
+  <script src="<?php echo base_url()?>assets/js/demo/datatables-demo.js"></script>
+  <script> 
+      function myFunction() {
+          window.print();
+      }
+      </script>
 </body>
 
 </html>
