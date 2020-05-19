@@ -99,78 +99,53 @@ function sum(){
 
 <form method="POST" enctype="multipart/form" action="<?=base_url('admin/tambah_pesanan');?>">
           
-<div class="card shodow mb-4">
-  <div class="card-header py-3">
-    <h6 class="m-0 font-weight-bold text-primary">Pesanan</h6>
+<div class="row">
+  <div class="col">
+    <div class="collapse multi-collapse show" id="multiCollapseExample2">
+      <div class="card shadow-lg">
+        <div class="card-header bg-primary-500 text-primary">Pesanan</div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+              <thead class="bg-info text-white"> 
+              <tr class="text-center">
+                <th>No</th>
+                <th>Nama Menu</th>
+                <th>Jumlah Pesanan</th>
+                <th>No Meja</th>
+                <th>Harga Satuan</th>
+                <th>Tanggal Pesanan</th>
+                <th>Jam Pesanan</th>
+                <th>Total</th>
+                <th>Action</th>
+              </tr>
+              </thead>
+              <tbody>
+              <?php  
+                $no = 1;
+                foreach ($pesan as $p) : ?>
+              <tr>
+                <td><?php echo $no++ ?></td>
+                <td><?php echo $p->nama_menu ?></td>
+                <td><?php echo $p->jlm_pesan ?></td>
+                <td><?php echo $p->no_meja ?></td>
+                <td><?php echo number_format($p->harga_satuan) ?></td>
+                <td><?php echo $p->tgl_pesan ?></td>
+                <td><?php echo $p->jam_pesan ?></td>
+                <td><?php echo number_format($p->total) ?></td>
+                <td onclick="javascript: return confirm('Anda yakin hapus ?')"><?php echo anchor('admin/hapus_pesanan/'.$p->id, '<div class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></div>') ?></td>
+              </tr>
+
+              <?php endforeach; ?> 
+              </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="card-body">
-    <div class="table-responsive">
-      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-        <thead>
-          <tr>
-            <th>No</th>
-            <th>Nama Menu</th>
-            <th>Jumlah Pesanan</th>
-            <th>No Meja</th>
-            <th>Harga Satuan</th>
-            <th>Tanggal Pesanan</th>
-            <th>Jam Pesanan</th>
-            <th>Total</th>
-            <th>Action</th>
-          </tr>
-          <?php 
+<button type="submit" class="btn btn-danger mb-5">Proses</button> 
+</form>
 
-$no = 1;
-foreach ($pesan as $p) : ?>
-
-<tr>
-  <td><?php echo $no++ ?></td>
-  <td><?php echo $p->nama_menu ?></td>
-  <td><?php echo $p->jlm_pesan ?></td>
-  <td><?php echo $p->no_meja ?></td>
-  <td><?php echo number_format($p->harga_satuan) ?></td>
-  <td><?php echo $p->tgl_pesan ?></td>
-  <td><?php echo $p->jam_pesan ?></td>
-  <td><?php echo number_format($p->total) ?></td>
-  <td onclick="javascript: return confirm('Anda yakin hapus ?')"><?php echo anchor('admin/hapus_pesanan/'.$p->id, '<div class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></div>') ?></td>
-
-</tr>
-
-<?php endforeach; ?>   
-        </thead>
-      
-      </table>
-      <button type="submit" class="btn btn-danger mb-5">Proses</button> 
-      <!-- <a class="btn btn-success mb-5" href="<?php echo base_url('admin/pdf_pesanan') ?>">Cetak</a> -->
-    </form>
-
-      
-      
-
-    <!--   <script type="text/javascript" src="<?php echo base_url().'assets/js/jquery.js'?>"></script>
-<script type="text/javascript" src="<?php echo base_url().'assets/js/bootstrap.js'?>"></script>
-<script type="text/javascript" src="<?php echo base_url().'assets/js/jquery.dataTables.js'?>"></script>
-
-<script type="text/javascript">
-$(document).ready(function(){
-  tampil_data_barang();
-
-  $('#mydata').dataTable();
-
-  //fungsi tampil barang
-  function tampil_data_barang(){
-    $.ajax({
-      type : 'GET',
-      url : '<?php echo base_url()?>admin/data_pesanan',
-      async : true,
-      dataType : 'json',
-      success : function(data){
-        var html = '';
-      }
-    })
-  }
-});
-
-</script>
- -->
- 
+   
