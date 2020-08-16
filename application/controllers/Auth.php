@@ -37,7 +37,6 @@ class Auth extends MY_Controller {
 					'nama_user'=>$user->nama_user, // Buat session nama
 					'id_level'=>$user->id_level, // Buat session id_level
 					'nama_level'=>$user->nama_level, 
-					'no_meja' =>$posisi_meja->no_meja
 				);
 				$user->id_level;
 				// die;
